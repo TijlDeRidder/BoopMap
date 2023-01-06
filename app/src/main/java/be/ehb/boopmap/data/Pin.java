@@ -19,6 +19,9 @@ public class Pin {
         this.description = description;
     }
 
+    public Pin() {
+    }
+
     public String getUid() {
         return uid;
     }
