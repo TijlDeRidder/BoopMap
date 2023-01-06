@@ -22,5 +22,16 @@
         <action
             android:id="@+id/action_mapFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_mapFragment_to_addPinFragment"
+            app:destination="@id/addPinFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addPinFragment"
+        android:name="be.ehb.boopmap.AddPinFragment"
+        android:label="AddPinFragment" >
+        <action
+            android:id="@+id/action_addPinFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
     </fragment>
 </navigation>

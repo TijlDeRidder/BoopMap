@@ -9,8 +9,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import be.ehb.boopmap.databinding.FragmentFirstBinding;
 
@@ -27,6 +31,7 @@ public class FirstFragment extends Fragment {
         FirebaseUser user = mAuth.getCurrentUser();
         binding = FragmentFirstBinding.inflate(inflater, container, false);
         return binding.getRoot();
+
 
     }
 
