@@ -1,6 +1,10 @@
 package be.ehb.boopmap.database;
 
+import static android.content.ContentValues.TAG;
+
+import android.util.Log;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
@@ -10,6 +14,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.AggregateQuery;
+import com.google.firebase.firestore.AggregateQuerySnapshot;
+import com.google.firebase.firestore.AggregateSource;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -48,5 +55,37 @@ public class Database {
             }
         });
         return pins;
+    }
+
+    public MutableLiveData<Integer> getPinsCount(){
+        MutableLiveData<Integer> count = new MutableLiveData<Integer>();
+        CollectionReference collectionReference = db.collection("Pins");
+        AggregateQuery countQuery = collectionReference.count();
+        countQuery.get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<AggregateQuerySnapshot> task) {
+                AggregateQuerySnapshot snapshot = task.getResult();
+                count.setValue((int) snapshot.getCount());
+            }
+        });
+        return count;
+    }
+
+    public void removePinById(int id){
+        CollectionReference collectionReference = db.collection("Pins");
+        collectionReference.whereEqualTo("id", id).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
+                        documentSnapshot.getReference().delete();
+                    }
+                    Log.d(TAG, "Document deleted succesfully!");
+                }else{
+                    Log.w(TAG, "Document deleted failed", task.getException());
+                }
+            }
+        });
     }
 }

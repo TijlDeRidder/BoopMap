@@ -7,11 +7,10 @@
     tools:context=".MapFragment">
 
     <fragment
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/map"
-    class="com.google.android.gms.maps.SupportMapFragment">
-
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/map"
+        class="com.google.android.gms.maps.SupportMapFragment">
     </fragment>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -19,18 +18,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="64dp"
         android:layout_marginRight="40dp"
+        android:layout_marginBottom="64dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_baseline_add_24"/>
-    <Button
-        android:id="@+id/btn_back"
+        app:srcCompat="@drawable/map_marker_plus_outline"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_seeList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:text="@string/previous"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginBottom="64dp"
+        android:layout_marginLeft="40dp"
+        app:srcCompat="@drawable/map_marker_remove_outline"
+        tools:ignore="SpeakableTextPresentCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

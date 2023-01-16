@@ -3,28 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/mapFragment">
 
-    <fragment
-        android:id="@+id/FirstFragment"
-        android:name="be.ehb.boopmap.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-        <action
-            android:id="@+id/action_FirstFragment_to_mapFragment"
-            app:destination="@id/mapFragment" />
-    </fragment>
     <fragment
         android:id="@+id/mapFragment"
         android:name="be.ehb.boopmap.MapFragment"
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" >
         <action
-            android:id="@+id/action_mapFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-        <action
             android:id="@+id/action_mapFragment_to_addPinFragment"
             app:destination="@id/addPinFragment" />
+        <action
+            android:id="@+id/action_mapFragment_to_pinListFragment"
+            app:destination="@id/pinListFragment" />
     </fragment>
     <fragment
         android:id="@+id/addPinFragment"
@@ -32,6 +23,15 @@
         android:label="AddPinFragment" >
         <action
             android:id="@+id/action_addPinFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pinListFragment"
+        android:name="be.ehb.boopmap.PinListFragment"
+        android:label="fragment_pin_list"
+        tools:layout="@layout/fragment_pin_list" >
+        <action
+            android:id="@+id/action_pinListFragment_to_mapFragment"
             app:destination="@id/mapFragment" />
     </fragment>
 </navigation>

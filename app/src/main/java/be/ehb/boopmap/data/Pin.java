@@ -6,17 +6,19 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class Pin {
     private String uid;
+    private int id;
     private double lat;
     private double lng;
     private String titel;
     private String description;
 
-    public Pin(String uid, double lat, double lng, String titel, String description) {
+    public Pin(String uid, double lat, double lng, String titel, String description, int id) {
         this.uid = uid;
         this.lat = lat;
         this.lng = lng;
         this.titel = titel;
         this.description = description;
+        this.id = id;
     }
 
     public Pin() {
@@ -60,5 +62,13 @@ public class Pin {
 
     public void setLng(double lng) {
         this.lng = lng;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

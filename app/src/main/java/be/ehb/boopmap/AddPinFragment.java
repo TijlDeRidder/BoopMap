@@ -1,5 +1,6 @@
 package be.ehb.boopmap;
 
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -54,16 +56,33 @@ public class AddPinFragment extends Fragment {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Location location;
-                fusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Location> task) {
-                        Location location = task.getResult();
-                        Pin pin = new Pin(mAuth.getUid(),location.getLatitude(),location.getLongitude(),txtTitel.getText().toString(), txtDescription.getText().toString());
-                        db.addPin(pin);
-                        NavHostFragment.findNavController(AddPinFragment.this).navigate(R.id.action_addPinFragment_to_mapFragment);
+                txtDescription.setBackgroundColor(Color.WHITE);
+                txtTitel.setBackgroundColor(Color.WHITE);
+                if(!txtTitel.getText().toString().isEmpty() && !txtDescription.getText().toString().isEmpty()){
+                    Location location;
+                    fusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Location> task) {
+                            Location location = task.getResult();
+                            db.getPinsCount().observe(getViewLifecycleOwner(), integer -> {
+                                int tempId = integer.intValue() + 1;
+                                Pin pin = new Pin(mAuth.getUid(),location.getLatitude(),location.getLongitude(),txtTitel.getText().toString(), txtDescription.getText().toString(), tempId);
+                                db.addPin(pin);
+                                NavHostFragment.findNavController(AddPinFragment.this).navigate(R.id.action_addPinFragment_to_mapFragment);
+                            });
+                        }
+                    });
+                }else{
+                    if(txtTitel.getText().toString().isEmpty()){
+                        txtTitel.setBackgroundColor(Color.RED);
+                        txtTitel.setHint("This cannot be empty");
                     }
-                });
+                    if(txtDescription.getText().toString().isEmpty()){
+                        txtDescription.setBackgroundColor(Color.RED);
+
+                        txtDescription.setHint("This cannot be empty");
+                    }
+                }
             }
         });
     }

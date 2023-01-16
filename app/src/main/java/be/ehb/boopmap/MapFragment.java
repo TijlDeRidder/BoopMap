@@ -26,6 +26,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -39,7 +40,7 @@ import be.ehb.boopmap.database.Database;
 import be.ehb.boopmap.databinding.FragmentMapBinding;
 
 
-public class MapFragment extends Fragment {
+public class MapFragment extends Fragment{
     private GoogleMap map;
     private SupportMapFragment supportMapFragment;
     private FragmentMapBinding binding;
@@ -63,6 +64,7 @@ public class MapFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         FloatingActionButton addPin = binding.getRoot().findViewById(R.id.btn_addPin);
+        FloatingActionButton seeList = binding.getRoot().findViewById(R.id.btn_seeList);
         supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -73,7 +75,7 @@ public class MapFragment extends Fragment {
                         for (Pin pin: pins
                              ) {
                             System.out.println(pins.size() + "test123");
-                            googleMap.addMarker(new MarkerOptions().position(new LatLng(pin.getLat(), pin.getLng())));
+                            googleMap.addMarker(new MarkerOptions().position(new LatLng(pin.getLat(), pin.getLng())).title("Titel: " + pin.getTitel()).snippet("Description: " + pin.getDescription()));
                         }
                     }
                 });
@@ -85,6 +87,7 @@ public class MapFragment extends Fragment {
                             PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
                     return;
                 }
+
                 googleMap.setMyLocationEnabled(true);
                 fusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
                     @Override
@@ -100,15 +103,16 @@ public class MapFragment extends Fragment {
                         NavHostFragment.findNavController(MapFragment.this).navigate(R.id.action_mapFragment_to_addPinFragment);
                     }
                 });
+
+                seeList.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        NavHostFragment.findNavController(MapFragment.this).navigate(R.id.action_mapFragment_to_pinListFragment);
+                    }
+                });
             }
         });
-        binding.btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(MapFragment.this)
-                        .navigate(R.id.action_mapFragment_to_FirstFragment);
-            }
-        });
+
     }
 
     @Override
@@ -116,5 +120,6 @@ public class MapFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
 
 }

@@ -14,6 +14,32 @@
         android:id="@+id/txt_pinTitel"
         android:hint="Titel"
         android:textAlignment="center"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="This adds a pin to your current location"
+        app:layout_constraintBottom_toTopOf="@+id/txt_pinTitel"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="50dp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Titel: "
+        android:layout_marginRight="75dp"
+        android:layout_marginLeft="75dp"
+        app:layout_constraintBottom_toTopOf="@+id/txt_pinTitel"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Description: "
+        android:layout_marginRight="75dp"
+        android:layout_marginLeft="75dp"
+        app:layout_constraintBottom_toTopOf="@+id/txt_pinDescription"
+        />
+
     <EditText
         app:layout_constraintTop_toBottomOf="@+id/txt_pinTitel"
         android:id="@+id/txt_pinDescription"
@@ -26,6 +52,7 @@
         android:textAlignment="center"
         android:hint="Description"
         android:inputType="textMultiLine"/>
+
     <Button
         android:id="@+id/btn_cancel"
         android:layout_width="wrap_content"
@@ -33,15 +60,16 @@
         android:layout_marginLeft="100dp"
         android:layout_marginTop="20dp"
         android:text="Cancel"
+        app:layout_constraintEnd_toStartOf="@+id/btn_submit"
+        android:layout_marginRight="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_pinDescription"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/txt_pinDescription" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/txt_pinDescription"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="100dp"
+        android:layout_marginRight="80dp"
         android:layout_marginTop="20dp"
         android:id="@+id/btn_submit"
         android:text="submit"/>
